@@ -24,3 +24,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/test',[TestController::class,'testDbConnection']);
 Route::get('/getuser',[UserController::class,'Login']);
 Route::get('/getcentre',[CentreController::class,'Getcentres']);
+Route::post('/adduser',[UserController::class,'AddUtilisateur']);
