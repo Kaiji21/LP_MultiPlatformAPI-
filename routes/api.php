@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CentreController;
+use App\Http\Controllers\PublicationController;
+use App\Http\Controllers\CategorieController;
+
+
 
 
 /*
@@ -24,4 +28,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/test',[TestController::class,'testDbConnection']);
 Route::get('/getuser',[UserController::class,'Login']);
 Route::get('/getcentre',[CentreController::class,'Getcentres']);
+Route::get('/getcategories',[CategorieController::class,'Get_Categories']);
+Route::get('/getpublication',[PublicationController::class,'Get_Publication']);
 Route::post('/adduser',[UserController::class,'AddUtilisateur']);

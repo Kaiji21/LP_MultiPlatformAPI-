@@ -4,23 +4,21 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
-class CentreController extends Controller
+class CategorieController extends Controller
 {
-    public function Getcentres(){
+    public function Get_Categories(){
         try{
-            $centers = DB::table('centre')
-            ->where('centre_archivee',0)
-            ->select('centre.*')
+            $Categories = DB::table('categorie')
+            ->select('categorie.*')
             ->get();
-
             return response()->json([
                 'status'=>200,
-                'Centres'=>$centers
+                'Categories'=>$Categories
 
             ]);
 
-        }
-        catch (\Exception $e) {
+        }catch (\Exception $e) {
+            DB::rollback();
             return response()->json([
                 'status'=>500,
                 'Message'=>'Erreur: '.$e->getMessage()
@@ -28,5 +26,4 @@ class CentreController extends Controller
         }
 
     }
-
 }

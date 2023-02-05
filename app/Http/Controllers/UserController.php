@@ -34,7 +34,6 @@ class UserController extends Controller
 
         }
         catch (\Exception $e) {
-            DB::rollback();
             return response()->json([
                 'status'=>500,
                 'Message'=>'Erreur: '.$e->getMessage()
