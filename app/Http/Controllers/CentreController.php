@@ -9,8 +9,10 @@ class CentreController extends Controller
     public function Getcentres(){
         try{
             $centers = DB::table('centre')
+            ->leftJoin('image_centre','image_centre.idCentre','=','centre.idCentre')
+            ->leftJoin('salle','salle.idCentre','=','centre.idCentre')
             ->where('centre_archivee',0)
-            ->select('centre.*')
+            ->select('centre.*','image_centre.Imageblob','salle.*')
             ->get();
 
             return response()->json([

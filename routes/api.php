@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CentreController;
 use App\Http\Controllers\PublicationController;
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\ReservationController;
 
 
 
@@ -31,3 +32,4 @@ Route::get('/getcentre',[CentreController::class,'Getcentres']);
 Route::get('/getcategories',[CategorieController::class,'Get_Categories']);
 Route::get('/getpublication',[PublicationController::class,'Get_Publication']);
 Route::post('/adduser',[UserController::class,'AddUtilisateur']);
+Route::post('/addreservation',[ReservationController::class,'Addreservation']);

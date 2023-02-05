@@ -10,7 +10,7 @@ class PublicationController extends Controller
          try{
         $Publication = DB::table('publication')
         ->join('employe','employe.idEmploye','=','publication.idEmploye')
-        ->join('image_publication','image_publication.id_Publication','=',"publication.idEmploye")
+        ->leftJoin('image_publication','image_publication.id_Publication','=',"publication.idEmploye")
         ->join('utilisateur','utilisateur.id_utlisateur','=','employe.id_utlisateur')
         ->select('employe.nomEmploye','publication.titre_publication','publication.contenu_publication','image_publication.photo')
         ->get();
