@@ -14,7 +14,8 @@ class UserController extends Controller
             $Utilisateur = DB::table('utilisateur')
             ->where('email_utilisateur',$request->get('Login'))
             ->where('mot_de_passe',$request->get('Password'))
-            ->select('utilisateur.*')
+            ->leftjoin('organisme','organisme.id_utlisateur','=','utilisateur.id_utlisateur')
+            ->select('utilisateur.*','organisme.nom_Organisme','organisme.code_Organisme')
             ->first();
 
             if (empty($Utilisateur)){
