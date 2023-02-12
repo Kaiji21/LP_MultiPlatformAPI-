@@ -14,6 +14,9 @@ class CentreController extends Controller
             ->where('centre_archivee',0)
             ->select('salle.*','image_centre.Imageblob','centre.*')
             ->get();
+            foreach ($centers as &$center) {
+                $center->Imageblob = base64_encode($center->Imageblob);
+            }
 
             return response()->json([
                 'status'=>200,
