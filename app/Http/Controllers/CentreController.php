@@ -12,7 +12,7 @@ class CentreController extends Controller
             ->leftJoin('image_centre','image_centre.idCentre','=','centre.idCentre')
             ->leftJoin('salle','salle.idCentre','=','centre.idCentre')
             ->where('centre_archivee',0)
-            ->select('centre.*','image_centre.Imageblob','salle.*')
+            ->select('salle.*','image_centre.Imageblob','centre.*')
             ->get();
 
             return response()->json([

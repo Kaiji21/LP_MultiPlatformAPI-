@@ -30,6 +30,9 @@ Route::get('/test',[TestController::class,'testDbConnection']);
 Route::get('/login',[UserController::class,'Login']);
 Route::get('/getcentre',[CentreController::class,'Getcentres']);
 Route::get('/getcategories',[CategorieController::class,'Get_Categories']);
+Route::get('/getorganismes',[CategorieController::class,'Get_Organismes']);
+
 Route::get('/getpublication',[PublicationController::class,'Get_Publication']);
 Route::post('/adduser',[UserController::class,'AddUtilisateur']);
 Route::post('/addreservation',[ReservationController::class,'Addreservation']);
+

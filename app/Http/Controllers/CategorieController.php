@@ -26,4 +26,24 @@ class CategorieController extends Controller
         }
 
     }
+    public function Get_Organismes(){
+        try{
+            $Organismes = DB::table('organisme')
+            ->select('organisme.id_Organisme')
+            ->get();
+            return response()->json([
+                'status'=>200,
+                'organisme'=>$Organismes
+
+            ]);
+
+        }catch (\Exception $e) {
+            DB::rollback();
+            return response()->json([
+                'status'=>500,
+                'Message'=>'Erreur: '.$e->getMessage()
+            ]);
+        }
+
+    }
 }
