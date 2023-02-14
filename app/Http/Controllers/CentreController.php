@@ -9,13 +9,27 @@ class CentreController extends Controller
     public function Getcentres(){
         try{
             $centers = DB::table('centre')
-            ->leftJoin('image_centre','image_centre.idCentre','=','centre.idCentre')
-            ->leftJoin('salle','salle.idCentre','=','centre.idCentre')
             ->where('centre_archivee',0)
-            ->select('salle.*','image_centre.Imageblob','centre.*')
+            ->select('centre.*')
             ->get();
             foreach ($centers as &$center) {
-                $center->Imageblob = base64_encode($center->Imageblob);
+                $images = DB::table('image_centre')
+                    ->where('idCentre', $center->idCentre)
+                    ->get();
+                $salles = DB::table('salle')
+                    ->leftjoin("image_salle",'image_salle.id_Salle','=','salle.id_Salle')
+                    ->where('idCentre',$center->idCentre)
+                    ->select('salle.*','image_salle.*')
+                    ->get();
+                    foreach ($salles as &$salle) {
+                        $salle->image = base64_encode($salle->image);
+                    }
+                $center->salles = $salles;
+                $center->images = [];
+                foreach ($images as $image_centre) {
+                    $center->images[] = base64_encode($image_centre->Imageblob);
+                }
+
             }
 
             return response()->json([
@@ -33,5 +47,6 @@ class CentreController extends Controller
         }
 
     }
+
 
 }

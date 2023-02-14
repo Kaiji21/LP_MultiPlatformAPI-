@@ -61,15 +61,30 @@ class UserController extends Controller
             $id_user = $user->id_utilisateur;
             $Organisme = Organisme::where('code_Organisme',$request->input('code_organisme'))
             ->update(["id_utlisateur" =>$id_user] );
-            DB::commit();
+            if ($Organisme==0){
+                DB::rollback();
+                return response()->json([
+                    'status'=>200,
+                    'Message'=>'makaynach chi organisme bhad lcode',
 
-            return response()->json([
-                'status'=>200,
-                'Message'=>'Utilisateur Bien éte ajouter et bien affecté a lorganisme',
-                'Organisme'=>$Organisme,
-                'Id_user'=>$id_user
 
-            ]);
+                ]);
+
+
+            }
+            else{
+                DB::commit();
+
+                return response()->json([
+                    'status'=>200,
+                    'Message'=>'Utilisateur Bien éte ajouter et bien affecté a lorganisme',
+                    'Organisme'=>$Organisme,
+                    'Id_user'=>$id_user
+
+                ]);
+
+            }
+
         } catch (\Exception $e) {
             DB::rollback();
             return response()->json([
