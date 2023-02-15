@@ -19,7 +19,7 @@ class CentreController extends Controller
                 $salles = DB::table('salle')
                     ->leftjoin("image_salle",'image_salle.id_Salle','=','salle.id_Salle')
                     ->where('idCentre',$center->idCentre)
-                    ->select('salle.*','image_salle.*')
+                    ->select('salle.*','image_salle.image')
                     ->get();
                     foreach ($salles as &$salle) {
                         $salle->image = base64_encode($salle->image);

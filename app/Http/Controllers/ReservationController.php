@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Reservation;
+use App\Models\Details_reservation;
 use Carbon\Carbon;
 
 class ReservationController extends Controller
