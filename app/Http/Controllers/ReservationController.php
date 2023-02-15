@@ -10,6 +10,7 @@ use Carbon\Carbon;
 class ReservationController extends Controller
 {
     public function Addreservation(Request $request){
+        DB::beginTransaction();
         try{
             $reservation = new Reservation;
             $reservation->dateDebut_Reservation= $request->get('datedebut');
@@ -20,8 +21,16 @@ class ReservationController extends Controller
             $reservation->personne_Invitee = $request->get('nbrinvitee');
             $reservation->description_Reservation = $request->get('description');
             $reservation->id_Organisme = $request->get('idorganisme');
-            $reservation->idCentre = $request->get('idcentre');
             $reservation->save();
+            $id_salles = explode(',', $request->input('id_sallesreserver'));
+            foreach($id_salles as $id){
+                $details_reservation = new Details_reservation;
+                $details_reservation->id_salle=$id;
+                $details_reservation->id_reservation=$reservation->id_Reservation;
+                $details_reservation->save();
+            }
+
+            DB::commit();
             return response()->json([
                 'status'=>200,
                 'Message'=>'Reservation bien été ajouter',
@@ -31,6 +40,7 @@ class ReservationController extends Controller
 
         }
         catch(\Exception $e){
+            DB::rollback();
             return response()->json([
                 'status'=>500,
                 'Message'=>'Erreur: '.$e->getMessage()
